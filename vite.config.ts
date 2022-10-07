@@ -8,4 +8,9 @@ export default defineConfig({
     vue(),
     ViteRsw(),
   ],
+  server: {
+    fs: {
+      allow: ['..']
+    }
+  }
 })

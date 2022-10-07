@@ -7,13 +7,24 @@
     "rsw": "rsw",
     "build": "rsw build && yarn fe:build",
     "fe:build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "prettier --check src && eslint --ext .js,.vue,.ts src",
+    "fix": "prettier --write src && npm run lint -- --fix"
   },
   "dependencies": {
-    "vue": "^3.2.34"
+    "prismjs": "^1.29.0",
+    "vue": "^3.2.34",
+    "vue-prism-editor": "^2.0.0-alpha.2"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@typescript-eslint/parser": "^5.39.0",
     "@vitejs/plugin-vue": "^2.3.3",
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.6.0",
+    "prettier": "^2.7.1",
     "typescript": "^4.5.4",
     "vite": "^2.8.0",
     "vite-plugin-rsw": "^2.0.5",
