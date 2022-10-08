@@ -55,7 +55,7 @@ jobs:
         id: pages
         uses: actions/configure-pages@v2
       - name: Install dependencies
-        run: npmi ci
+        run: npm ci
       - name: Build
         run: npm run build
       - name: Upload artifact

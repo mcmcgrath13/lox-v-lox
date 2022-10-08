@@ -1,6 +1,19 @@
 <template>
   <div class="wrapper">
-    <div class="nav"><h1>Lox v Lox</h1><p>A battle of the <a href="https://craftinginterpreters.com/contents.html">Crafting Interpreters</a> implementations: a tree-walk interpreter in rust v. a byte code virtual machine in Zig</p></div>
+    <div class="nav">
+      <h1>Lox v Lox</h1>
+      <p>
+        A battle of the
+        <a href="https://craftinginterpreters.com/contents.html"
+          >Crafting Interpreters</a
+        >
+        implementations: a
+        <a href="https://github.com/mcmcgrath13/lox-rs"
+          >tree-walk interpreter in rust</a
+        >
+        v. a byte code virtual machine in Zig
+      </p>
+    </div>
     <div class="content-wrapper">
       <CodeEditor />
     </div>
