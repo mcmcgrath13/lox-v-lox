@@ -1,38 +1,38 @@
 <template>
   <div class="container">
-    <div class="window-pane editor">
-      <Codemirror
-        v-model="data"
-        class="lox-editor"
-        placeholder="Code goes here..."
-        :style="{
-          overflowY: 'scroll',
-          height: '100%',
-          backgroundColor: 'var(--color-offblack)',
-        }"
-        :autofocus="true"
-        :indent-with-tab="true"
-        :tab-size="4"
-        :extensions="extensions"
-      />
-      <div class="button-container">
-        <button
-          class="run-button"
-          :disabled="lox === null"
-          @click="runCode(data)"
-        >
-          run
-        </button>
+    <WindowPane title="Program" class="editor">
+      <div class="editor-container">
+        <Codemirror
+          v-model="data"
+          class="lox-editor"
+          placeholder="Code goes here..."
+          :style="{
+            overflowY: 'scroll',
+          }"
+          :autofocus="true"
+          :indent-with-tab="true"
+          :tab-size="4"
+          :extensions="extensions"
+        />
+        <div class="button-container">
+          <button
+            class="run-button"
+            :disabled="lox === null"
+            @click="runCode(data)"
+          >
+            run
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="window-pane rust result">
+    </WindowPane>
+    <WindowPane title="Rust" class="rust result">
       <div>{{ result }}</div>
       <div>{{ errors }}</div>
-    </div>
-    <div class="window-pane zig result">
+    </WindowPane>
+    <WindowPane title="Zig" class="zig result">
       <div>{{ result }}</div>
       <div>{{ errors }}</div>
-    </div>
+    </WindowPane>
   </div>
 </template>
 
@@ -43,6 +43,8 @@ import { java } from "@codemirror/lang-java";
 import { oneDark } from "@codemirror/theme-one-dark";
 
 import init, { Lox } from "lox-wasm";
+
+import WindowPane from "./WindowPane.vue";
 
 const extensions = [java(), oneDark];
 
@@ -83,16 +85,19 @@ const runCode = (code) => {
 @media (min-width: 34.375rem) {
   .container {
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
     grid-template-areas: "editor editor" "rust zig";
   }
 }
 
 .editor {
   grid-area: editor;
-
   height: max(50vh, 200px);
-  display: flex;
-  flex-direction: column;
+}
+
+.editor-container {
+  display: grid;
+  grid-template-rows: minmax(0px, 1fr) auto;
   gap: 8px;
 }
 
@@ -128,14 +133,5 @@ const runCode = (code) => {
   color: var(--color-primary);
   padding: 0.3rem 1.5rem;
   font-weight: var(--font-weight-medium);
-}
-
-.window-pane {
-  --border-color: var(--color-gray-500);
-  border: thick double var(--border-color);
-  border-top: 20px solid var(--border-color);
-  background: var(--color-offblack);
-  color: var(--color-gray-100);
-  padding: 1rem;
 }
 </style>

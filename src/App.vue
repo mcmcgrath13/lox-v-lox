@@ -18,7 +18,6 @@ import CodeEditor from "./components/CodeEditor.vue";
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  background-color: var(--color-gray-100);
 }
 
 .nav {
