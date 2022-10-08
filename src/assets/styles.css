@@ -1,0 +1,232 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* DESIGN TOKENS */
+html {
+  --color-white: hsl(0deg 0% 100%);
+  --color-light: hsl(15deg 15% 85%);
+  --color-offblack: hsl(24deg 5% 6%);
+  --color-gray-100: hsl(40deg 12% 95%);
+  --color-gray-300: hsl(35deg 8% 80%);
+  --color-gray-500: hsl(30deg 4% 60%);
+  --color-gray-700: hsl(28deg 5% 40%);
+  --color-gray-800: hsl(26deg 5% 27%);
+  --color-gray-900: hsl(24deg 6% 16%);
+  --color-primary: hsl(224deg 30% 40%);
+  --color-secondary: hsl(158deg 29% 50%);
+  --color-urgent: hsl(29deg 80% 50%);
+
+  --font-weight-light: 400;
+  --font-weight-normal: 500;
+  --font-weight-medium: 700;
+  --font-weight-bold: 900;
+
+  --font-family-sans-serif: Avenir, Helvetica, Arial, sans-serif;
+  --font-family-mono: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
+
+  --gutter: 24px;
+}
+
+@media (min-width: 34.375rem) {
+  html {
+    --gutter: 48px;
+  }
+}
+
+@media (min-width: 93.75rem) {
+  html {
+    --gutter: 64px;
+  }
+}
+
+/* GLOBAL STYLES */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  /*
+    Create a stacking context, without a z-index.
+    This ensures that all portal content (modals and tooltips) will
+    float above the app.
+  */
+  isolation: isolate;
+}
+
+html {
+  /*
+    Silence the warning about missing Reach Dialog styles
+  */
+  --reach-dialog: 1;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-light);
+  font-family: var(--font-family-mono);
+}
+
+/*
+  Remove default button styles. We'll provide our own at the
+  component level
+*/
+button {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.prism-editor__container {
+  height: 100%;
+}
+.prism-editor__textarea {
+  height: 100%;
+}
+.prism-editor__textarea:focus {
+  outline: none;
+}

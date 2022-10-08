@@ -1,5 +1,10 @@
 <template>
-  <CodeEditor />
+  <div class="wrapper">
+    <div class="nav"><h1>Lox v Lox</h1></div>
+    <div class="content-wrapper">
+      <CodeEditor />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -8,13 +13,27 @@
 import CodeEditor from "./components/CodeEditor.vue";
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-color: var(--color-gray-100);
+}
+
+.nav {
+  padding: 0.5rem var(--gutter);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.nav > h1 {
+  line-height: 1;
+}
+
+.content-wrapper {
+  flex: 1;
+  isolation: isolate;
+  padding: var(--gutter);
 }
 </style>
