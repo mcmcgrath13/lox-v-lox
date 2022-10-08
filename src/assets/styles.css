@@ -127,15 +127,15 @@ table {
 html {
   --color-white: hsl(0deg 0% 100%);
   --color-light: hsl(15deg 15% 85%);
-  --color-offblack: hsl(24deg 5% 6%);
+  --color-offblack: #282c34;
   --color-gray-100: hsl(40deg 12% 95%);
   --color-gray-300: hsl(35deg 8% 80%);
   --color-gray-500: hsl(30deg 4% 60%);
   --color-gray-700: hsl(28deg 5% 40%);
   --color-gray-800: hsl(26deg 5% 27%);
   --color-gray-900: hsl(24deg 6% 16%);
-  --color-primary: hsl(224deg 30% 40%);
-  --color-secondary: hsl(158deg 29% 50%);
+  --color-primary: hsl(224deg 50% 40%);
+  --color-secondary: hsl(224deg 29% 50%);
   --color-urgent: hsl(29deg 80% 50%);
 
   --font-weight-light: 400;
@@ -193,7 +193,7 @@ body,
 }
 
 body {
-  background-color: var(--color-light);
+  background-color: var(--color-secondary);
   font-family: var(--font-family-mono);
 }
 
@@ -221,12 +221,6 @@ a:hover {
   text-decoration: none;
 }
 
-.prism-editor__container {
-  height: 100%;
-}
-.prism-editor__textarea {
-  height: 100%;
-}
-.prism-editor__textarea:focus {
+.ͼ1.cm-editor.cm-focused {
   outline: none;
 }

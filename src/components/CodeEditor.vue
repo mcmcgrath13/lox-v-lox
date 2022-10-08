@@ -1,12 +1,20 @@
 <template>
   <div class="container">
     <div class="window-pane editor">
-      <PrismEditor
+      <Codemirror
         v-model="data"
         class="lox-editor"
-        :highlight="highlighter"
-        line-numbers
-      ></PrismEditor>
+        placeholder="Code goes here..."
+        :style="{
+          overflowY: 'scroll',
+          height: '100%',
+          backgroundColor: 'var(--color-offblack)',
+        }"
+        :autofocus="true"
+        :indent-with-tab="true"
+        :tab-size="4"
+        :extensions="extensions"
+      />
       <div class="button-container">
         <button
           class="run-button"
@@ -30,12 +38,13 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { PrismEditor } from "vue-prism-editor";
-import { highlight, languages } from "prismjs/components/prism-core";
-import "prismjs/components/prism-clike";
-import "prismjs/themes/prism-tomorrow.css";
+import { Codemirror } from "vue-codemirror";
+import { java } from "@codemirror/lang-java";
+import { oneDark } from "@codemirror/theme-one-dark";
 
 import init, { Lox } from "lox-wasm";
+
+const extensions = [java(), oneDark];
 
 // init is async and needs to finish running before creating a Lox instance
 const lox = ref(null);
@@ -59,10 +68,6 @@ const runCode = (code) => {
     errors.value = e;
   }
 };
-
-const highlighter = (code) => {
-  return highlight(code, languages.clike);
-};
 </script>
 
 <style scoped>
@@ -78,7 +83,6 @@ const highlighter = (code) => {
 @media (min-width: 34.375rem) {
   .container {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 2fr 1fr;
     grid-template-areas: "editor editor" "rust zig";
   }
 }
@@ -89,6 +93,7 @@ const highlighter = (code) => {
   height: max(50vh, 200px);
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 
 .rust {
@@ -102,13 +107,12 @@ const highlighter = (code) => {
 .result {
   white-space: pre-line;
   word-break: break-all;
+  overflow-y: auto;
+  height: max(25vh, 100px);
 }
 
-/* required class */
 .lox-editor {
-  /* you must provide font-family font-size line-height. Example: */
-  line-height: 1.5;
-  width: 100%;
+  font-size: 1rem;
 }
 
 /* see the global styles for prism editor styling*/
@@ -116,13 +120,14 @@ const highlighter = (code) => {
 .button-container {
   display: flex;
   justify-content: center;
-  padding: 5px;
+  flex: 0;
 }
 
 .run-button {
   background: var(--color-gray-300);
   color: var(--color-primary);
   padding: 0.3rem 1.5rem;
+  font-weight: var(--font-weight-medium);
 }
 
 .window-pane {
