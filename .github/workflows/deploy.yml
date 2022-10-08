@@ -3,7 +3,7 @@ name: Deploy  site to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: [$default-branch]
+    branches: ['main']
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -29,13 +29,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
       - name: Checkout lox-rs
         uses: actions/checkout@v3
         with:
           repository: mcmcgrath13/lox-rs
-          path: lox-rs
+      - name: Checkout lox-v-lox
+        uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
       - name: install rsw
         run: cargo install rsw
       - name: Setup Node
@@ -46,25 +54,9 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v2
-        with:
-          # Automatically inject pathPrefix in your Gatsby configuration file.
-          #
-          # You may remove this line if you want to manage the configuration yourself.
-          static_site_generator: gatsby
-      - name: Restore cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            public
-            .cache
-          key: ${{ runner.os }}-gatsby-build-${{ hashFiles('public') }}
-          restore-keys: |
-            ${{ runner.os }}-gatsby-build-
       - name: Install dependencies
         run: npmi ci
-      - name: Build with Gatsby
-        env:
-          PREFIX_PATHS: 'true'
+      - name: Build
         run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
