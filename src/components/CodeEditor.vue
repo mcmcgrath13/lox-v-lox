@@ -48,7 +48,7 @@ import WindowPane from "./WindowPane.vue";
 const extensions = [java(), oneDark];
 
 // init is async and needs to finish running before creating a Lox instance
-const lox = ref(null);
+const lox = ref<null | Lox>(null);
 init()
   .then(() => {
     lox.value = new Lox();
@@ -59,14 +59,14 @@ const data = ref("print 1 + 2;");
 const result = ref("");
 const errors = ref("");
 
-const runCode = (code) => {
+const runCode = (code: string) => {
   try {
     result.value = "";
-    result.value = lox.value.run(code);
+    result.value = (lox.value as Lox).run(code);
     errors.value = "";
   } catch (e) {
     console.error(e);
-    errors.value = e;
+    errors.value = e as string;
   }
 };
 </script>

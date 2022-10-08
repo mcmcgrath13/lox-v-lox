@@ -1,69 +1,28 @@
-# wasm-vue
+# lox-v-lox
 
-- [vite-plugin-rsw](https://github.com/lencx/vite-plugin-rsw) - 🦀 wasm-pack plugin for Vite
-- [rsw-rs](https://github.com/lencx/rsw-rs) - 🦞 wasm-pack based build tool
-- [WebAssembly Series](https://github.com/lencx/awesome/blob/main/WebAssembly.md)
-- [learn-wasm](https://github.com/lencx/learn-wasm)
+A web app comparing the results of [lox-rs](https://github.com/mcmcgrath13/lox-rs) and lox-zig interpreters for the same program.  Both lox's are compiled to wasm, so this is a serverless app.
+
+## Prereqs
+
+- Node 16
+- [rsw-rs](https://github.com/rwasm/rsw-rs) - 🦞 wasm-pack based build tool
+_
 
 ## Quick Start
 
-```bash
-# https://github.com/lencx/create-mpl
-# npm 6.x
-npm init mpl@latest my-app --type wasm
+RSW is looking for the lox implementations in sibling directories to the root directory of this project.
 
-# npm 7+, extra double-dash is needed:
-npm init mpl@latest my-app -- --type wasm
+### Development
+```bash
+npm install
+npm run watch
+
+# in a different tab
+npm run dev
 ```
 
-Step1: Install deps
-
+### Production
 ```bash
-yarn
-```
-
-Step2: Init rsw.toml
-
-```bash
-# yarn rsw -h
-yarn rsw init
-```
-
-Step3: Generate rust crate
-
-```bash
-yarn rsw new rsw-hello
-```
-
-Step4: Edit rsw.toml
-
-[rsw doc](https://github.com/lencx/rsw-rs#readme)
-
-```toml
-[[crates]]
-#! npm package name
-name = "rsw-hello"
-#! ⚠️ Note: must be set to `true`
-#！ run `npm link`: `true` | `false`, default is `false`
-link = true
-```
-
-Step5: Run rsw watch
-
-> ⚠️ Note: Do not exit the process after the command has started.
-
-```bash
-yarn watch
-```
-
-Step6: Run dev
-
-```bash
-yarn dev
-```
-
-Step7: Deploy
-
-```bash
-yarn build
+npm install
+npm run deploy
 ```

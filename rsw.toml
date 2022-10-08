@@ -32,7 +32,7 @@ using = "wasm-pack"
 name = "lox-wasm"
 #! run `npm link`: `true` | `false`, default is `false`
 link = true
-root = "../crafting-interpreters/lox-rs"
+root = "../lox-rs"
 
 #! =======================================================
 
