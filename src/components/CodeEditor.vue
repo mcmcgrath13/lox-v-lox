@@ -30,8 +30,7 @@
       <div>{{ errors }}</div>
     </WindowPane>
     <WindowPane title="Zig" class="zig result">
-      <div>{{ result }}</div>
-      <div>{{ errors }}</div>
+      <div>[not implemented yet]</div>
     </WindowPane>
   </div>
 </template>

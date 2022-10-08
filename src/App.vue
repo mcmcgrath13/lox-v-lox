@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="nav"><h1>Lox v Lox</h1></div>
+    <div class="nav"><h1>Lox v Lox</h1><p>A battle of the <a href="https://craftinginterpreters.com/contents.html">Crafting Interpreters</a> implementations: a tree-walk interpreter in rust v. a byte code virtual machine in Zig</p></div>
     <div class="content-wrapper">
       <CodeEditor />
     </div>
@@ -22,12 +22,13 @@ import CodeEditor from "./components/CodeEditor.vue";
 
 .nav {
   padding: 0.5rem var(--gutter);
-  font-size: 2rem;
   line-height: 1;
+  color: var(--color-gray-900);
 }
 
 .nav > h1 {
   line-height: 1;
+  font-size: 2rem;
 }
 
 .content-wrapper {
