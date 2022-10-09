@@ -50,5 +50,6 @@ import CodeEditor from "./components/CodeEditor.vue";
   flex: 1;
   isolation: isolate;
   padding: var(--gutter);
+  padding-bottom: 0;
 }
 </style>
