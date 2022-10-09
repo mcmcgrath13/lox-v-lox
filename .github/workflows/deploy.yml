@@ -53,7 +53,7 @@ jobs:
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
       - name: install rsw
-        run: cargo install rsw -Z install-upgrade
+        run: cargo install rsw --force
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
