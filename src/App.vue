@@ -31,6 +31,8 @@ import CodeEditor from "./components/CodeEditor.vue";
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  max-width: 100rem;
+  margin: 0 auto;
 }
 
 .nav {
