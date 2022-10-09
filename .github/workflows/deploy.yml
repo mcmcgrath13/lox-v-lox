@@ -33,8 +33,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: mcmcgrath13/lox-rs
+          path: lox-rs
       - name: Checkout lox-v-lox
         uses: actions/checkout@v3
+        with:
+          path: main
       - uses: actions/cache@v3
         with:
           path: |
