@@ -4,14 +4,14 @@
       <h1>Lox v Lox</h1>
       <p>
         A battle of the
-        <a href="https://craftinginterpreters.com/contents.html"
+        <em><a href="https://craftinginterpreters.com/contents.html"
           >Crafting Interpreters</a
-        >
+        ></em>
         implementations: a
         <a href="https://github.com/mcmcgrath13/lox-rs"
-          >tree-walk interpreter in rust</a
+          >tree-walk interpreter in Rust</a
         >
-        v. a byte code virtual machine in Zig
+        v. a <a href="https://github.com/mcmcgrath13/lox-zig">bytecode virtual machine in Zig</a>
       </p>
     </div>
     <div class="content-wrapper">
