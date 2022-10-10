@@ -4,14 +4,19 @@
       <h1>Lox v Lox</h1>
       <p>
         A battle of the
-        <em><a href="https://craftinginterpreters.com/contents.html"
-          >Crafting Interpreters</a
-        ></em>
+        <em
+          ><a href="https://craftinginterpreters.com/contents.html"
+            >Crafting Interpreters</a
+          ></em
+        >
         implementations: a
         <a href="https://github.com/mcmcgrath13/lox-rs"
           >tree-walk interpreter in Rust</a
         >
-        v. a <a href="https://github.com/mcmcgrath13/lox-zig">bytecode virtual machine in Zig</a>
+        v. a
+        <a href="https://github.com/mcmcgrath13/lox-zig"
+          >bytecode virtual machine in Zig</a
+        >
       </p>
     </div>
     <div class="content-wrapper">
@@ -49,7 +54,6 @@ import CodeEditor from "./components/CodeEditor.vue";
 .content-wrapper {
   flex: 1;
   isolation: isolate;
-  padding: var(--gutter);
-  padding-bottom: 0;
+  padding: calc(0.5 * var(--gutter)) var(--gutter) 0;
 }
 </style>
