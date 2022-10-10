@@ -1,6 +1,19 @@
 <template>
   <div class="container">
     <WindowPane title="Program" class="editor">
+      <template #bar>
+        <label class="sample-programs">
+          <select
+            aria-label="select a sample program"
+            class="program-select"
+            @change="changeProgram"
+          >
+            <option v-for="sample in SAMPLE_PROGRAMS" :key="sample.name">
+              {{ sample.name }}
+            </option>
+          </select>
+        </label>
+      </template>
       <div class="editor-container">
         <Codemirror
           v-model="data"
@@ -20,6 +33,12 @@
             :disabled="lox === null"
             @click="runCode(data)"
           >
+            <svg width="1em" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M10 20H8V4h2v2h2v3h2v2h2v2h-2v2h-2v3h-2v2z"
+              />
+            </svg>
             run
           </button>
         </div>
@@ -44,6 +63,7 @@ import { oneDark } from "@codemirror/theme-one-dark";
 import init, { Lox } from "lox-wasm";
 
 import WindowPane from "./WindowPane.vue";
+import { SAMPLE_PROGRAMS } from "../samples.js";
 
 const extensions = [java(), oneDark];
 
@@ -55,9 +75,14 @@ init()
   })
   .catch((e) => console.error(e));
 
-const data = ref("print 1 + 2;");
+const data = ref(SAMPLE_PROGRAMS[0].program.trim());
 const result = ref("");
 const errors = ref("");
+
+const changeProgram = (event) => {
+  const program = SAMPLE_PROGRAMS.find((p) => p.name === event.target.value);
+  data.value = program.program.trim();
+};
 
 const runCode = (code: string) => {
   try {
@@ -97,7 +122,7 @@ const runCode = (code: string) => {
 .editor-container {
   display: grid;
   grid-template-rows: minmax(0px, 1fr) auto;
-  gap: 8px;
+  margin: -1rem 0;
 }
 
 .rust {
@@ -125,12 +150,42 @@ const runCode = (code: string) => {
   display: flex;
   justify-content: center;
   flex: 0;
+  margin: 0 -1rem;
+}
+
+.run-button,
+.program-select {
+  background: var(--color-gray-300);
+  color: var(--color-gray-800);
+  font-weight: var(--font-weight-medium);
 }
 
 .run-button {
-  background: var(--color-gray-300);
-  color: var(--color-primary);
-  padding: 0.3rem 1.5rem;
-  font-weight: var(--font-weight-medium);
+  padding: 0.5rem 1.5rem 0.5rem 0.75rem;
+  border-top: solid 3px var(--color-gray-700);
+  transition: 0.3s ease-out;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+}
+
+.run-button:hover {
+  background: var(--color-gray-800);
+  color: var(--color-gray-300);
+  transition: 0.1s ease-out;
+}
+
+.sample-programs {
+  font-size: 0.875rem;
+  margin: 0.3rem 0;
+}
+
+.program-select {
+  font-family: inherit;
+  border: solid 1px var(--color-gray-300);
+  font-size: 1.1em;
+  padding: 0 0.2rem;
 }
 </style>
