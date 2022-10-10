@@ -41,33 +41,42 @@ import { Codemirror } from "vue-codemirror";
 import { java } from "@codemirror/lang-java";
 import { oneDark } from "@codemirror/theme-one-dark";
 
-import init, { Lox } from "lox-wasm";
+const data = ref("print 1 + 2;");
+const result = ref("");
+const errors = ref("");
+
+
+import RsWorker from '../workers/lox-rs?worker'
+
+RsWorker.onmessage = function(e) {
+    result.value = e.data;
+    console.log('Message received from worker');
+  }
+
+// import init, { Lox } from "lox-wasm";
 
 import WindowPane from "./WindowPane.vue";
 
 const extensions = [java(), oneDark];
 
 // init is async and needs to finish running before creating a Lox instance
-const lox = ref<null | Lox>(null);
-init()
-  .then(() => {
-    lox.value = new Lox();
-  })
-  .catch((e) => console.error(e));
+// const lox = ref<null | Lox>(null);
+// init()
+//   .then(() => {
+//     lox.value = new Lox();
+//   })
+//   .catch((e) => console.error(e));
 
-const data = ref("print 1 + 2;");
-const result = ref("");
-const errors = ref("");
 
 const runCode = (code: string) => {
-  try {
-    result.value = "";
-    result.value = (lox.value as Lox).run(code);
-    errors.value = "";
-  } catch (e) {
-    console.error(e);
-    errors.value = e as string;
-  }
+  myWorker.postMessage(code);
+  // result.value =
+  // try {
+  //   result.value = (lox.value as Lox).run(code);
+  // } catch (e) {
+  //   console.error(e);
+  //   errors.value = e as string;
+  // }
 };
 </script>
 
