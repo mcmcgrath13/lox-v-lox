@@ -5,7 +5,7 @@
     "dev": "vite",
     "watch": "rsw watch",
     "rsw": "rsw",
-    "build-gh": "rsw build && npm run fe:build-gh -- --base=/lox-v-lox/",
+    "build-gh": "rsw build && npm run fe:build -- --base=/lox-v-lox/",
     "build": "rsw build && npm run fe:build",
     "fe:build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
