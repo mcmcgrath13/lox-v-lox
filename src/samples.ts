@@ -1,4 +1,9 @@
-export const SAMPLE_PROGRAMS = [
+export interface Program {
+  name: string;
+  program: string;
+}
+
+export const SAMPLE_PROGRAMS: Program[] = [
   {
     name: "Fibonacci (recursive)",
     program: `

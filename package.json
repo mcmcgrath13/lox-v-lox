@@ -8,7 +8,7 @@
     "build": "rsw build && npm run fe:build",
     "fe:build": "vue-tsc --noEmit && vite build --base=/lox-v-lox/",
     "preview": "vite preview",
-    "lint": "prettier --check src && eslint --ext .js,.vue,.ts src",
+    "lint": "vue-tsc --noEmit && prettier --check src && eslint --ext .js,.vue,.ts src",
     "fix": "prettier --write src && npm run lint -- --fix"
   },
   "dependencies": {
