@@ -21,8 +21,15 @@ npm run watch
 npm run dev
 ```
 
+**Note**: The web workers do not work in development mode, so to test that functionality, build and run the app locally.
+
+```bash
+npm run build
+python3 -m http.server -d dist
+```
+
 ### Production
 ```bash
 npm install
-npm run deploy
+npm run build-gh
 ```
