@@ -95,7 +95,6 @@ const changeProgram = (event: Event) => {
 };
 
 const runCode = (code: string) => {
-  console.log("posting message", rsWorker);
   rsWorker.postMessage(code);
   loading.value = true;
   result.value = "";
