@@ -28,11 +28,7 @@
           :extensions="extensions"
         />
         <div class="button-container">
-          <button
-            class="run-button"
-            :disabled="lox === null"
-            @click="runCode(data)"
-          >
+          <button class="run-button" :disabled="loading" @click="runCode(data)">
             <svg width="1em" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -60,50 +56,49 @@ import { Codemirror } from "vue-codemirror";
 import { java } from "@codemirror/lang-java";
 import { oneDark } from "@codemirror/theme-one-dark";
 
-import {SAMPLE_PROGRAMS } from "../samples.js";
+import { SAMPLE_PROGRAMS, Program } from "../samples.js";
+import WindowPane from "./WindowPane.vue";
+
+import RsWorker from "../workers/lox-rs.js?worker";
+
+const extensions = [java(), oneDark];
 
 const data = ref(SAMPLE_PROGRAMS[0].program.trim());
 const result = ref("");
 const errors = ref("");
+const loading = ref(true);
 
+const rsWorker = new RsWorker();
 
-import RsWorker from '../workers/lox-rs?worker'
-
-RsWorker.onmessage = function(e) {
+rsWorker.onmessage = function (e) {
+  if (e.data !== "__ready__") {
     result.value = e.data;
-    console.log('Message received from worker');
+    errors.value = "";
   }
+  loading.value = false;
+};
 
-// import init, { Lox } from "lox-wasm";
+rsWorker.onerror = function (e) {
+  console.error(e);
+  errors.value = e.message;
+  result.value = "";
+  loading.value = false;
+};
 
-import WindowPane from "./WindowPane.vue";
-import { SAMPLE_PROGRAMS } from "../samples.js";
+rsWorker.postMessage("__init__");
 
-const extensions = [java(), oneDark];
-
-// init is async and needs to finish running before creating a Lox instance
-// const lox = ref<null | Lox>(null);
-// init()
-//   .then(() => {
-//     lox.value = new Lox();
-//   })
-//   .catch((e) => console.error(e));
-
-
-const changeProgram = (event) => {
-  const program = SAMPLE_PROGRAMS.find((p) => p.name === event.target.value);
+const changeProgram = (event: Event) => {
+  const program = SAMPLE_PROGRAMS.find(
+    (p) => p.name === (<HTMLSelectElement>event?.target)?.value
+  ) as Program;
   data.value = program.program.trim();
 };
 
 const runCode = (code: string) => {
-  myWorker.postMessage(code);
-  // result.value =
-  // try {
-  //   result.value = (lox.value as Lox).run(code);
-  // } catch (e) {
-  //   console.error(e);
-  //   errors.value = e as string;
-  // }
+  console.log("posting message", rsWorker);
+  rsWorker.postMessage(code);
+  loading.value = true;
+  result.value = "";
 };
 </script>
 
@@ -186,6 +181,12 @@ const runCode = (code: string) => {
   background: var(--color-gray-800);
   color: var(--color-gray-300);
   transition: 0.1s ease-out;
+}
+
+.run-button:disabled {
+  background: var(--color-gray-100);
+  color: var(--color-gray-300);
+  cursor: not-allowed;
 }
 
 .sample-programs {
