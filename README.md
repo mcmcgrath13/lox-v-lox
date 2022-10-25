@@ -1,6 +1,6 @@
 # lox-v-lox
 
-A web app comparing the results of [lox-rs](https://github.com/mcmcgrath13/lox-rs) and lox-zig interpreters for the same program.  Both lox's are compiled to wasm, so this is a serverless app.
+A web app comparing the results of [lox-rs](https://github.com/mcmcgrath13/lox-rs) and [lox-zig](https://github.com/mcmcgrath13/lox-zig) interpreters for the same program.  Both lox's are compiled to wasm, so this is a serverless app.
 
 ## Prereqs
 
