@@ -28,7 +28,7 @@
           :extensions="extensions"
         />
         <div class="button-container">
-          <button class="run-button" :disabled="loading" @click="runCode(data)">
+          <button class="run-button" :disabled="(rsLoading || zigLoading)" @click="runCode(data)">
             <svg width="1em" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -41,11 +41,12 @@
       </div>
     </WindowPane>
     <WindowPane title="Rust" class="rust result">
-      <div>{{ result }}</div>
-      <div>{{ errors }}</div>
+      <div>{{ rsResult }}</div>
+      <div>{{ rsErrors }}</div>
     </WindowPane>
     <WindowPane title="Zig" class="zig result">
-      <div>[not implemented yet]</div>
+      <div>{{ zigResult }}</div>
+      <div>{{ zigErrors }}</div>
     </WindowPane>
   </div>
 </template>
@@ -60,32 +61,60 @@ import { SAMPLE_PROGRAMS, Program } from "../samples.js";
 import WindowPane from "./WindowPane.vue";
 
 import RsWorker from "../workers/lox-rs.js?worker";
+import ZigWorker from "../workers/lox-zig.js?worker";
 
 const extensions = [java(), oneDark];
 
 const data = ref(SAMPLE_PROGRAMS[0].program.trim());
-const result = ref("");
-const errors = ref("");
-const loading = ref(true);
+
+
+// RUST
+const rsResult = ref("");
+const rsErrors = ref("");
+const rsLoading = ref(true);
 
 const rsWorker = new RsWorker();
 
 rsWorker.onmessage = function (e) {
   if (e.data !== "__ready__") {
-    result.value = e.data;
-    errors.value = "";
+    rsResult.value = e.data;
+    rsErrors.value = "";
   }
-  loading.value = false;
+  rsLoading.value = false;
 };
 
 rsWorker.onerror = function (e) {
   console.error(e);
-  errors.value = e.message;
-  result.value = "";
-  loading.value = false;
+  rsErrors.value = e.message;
+  rsResult.value = "";
+  rsLoading.value = false;
 };
 
 rsWorker.postMessage("__init__");
+
+// ZIG
+const zigResult = ref("");
+const zigErrors = ref("");
+const zigLoading = ref(true);
+
+const zigWorker = new ZigWorker();
+
+zigWorker.onmessage = function (e) {
+  if (e.data !== "__ready__" && e.data !== "__done__") {
+    zigResult.value += e.data;
+    zigErrors.value = "";
+  }
+  zigLoading.value = false;
+};
+
+zigWorker.onerror = function (e) {
+  console.error(e);
+  zigErrors.value = e.message;
+  zigResult.value = "";
+  zigLoading.value = false;
+};
+
+zigWorker.postMessage("__init__");
 
 const changeProgram = (event: Event) => {
   const program = SAMPLE_PROGRAMS.find(
@@ -96,8 +125,12 @@ const changeProgram = (event: Event) => {
 
 const runCode = (code: string) => {
   rsWorker.postMessage(code);
-  loading.value = true;
-  result.value = "";
+  rsLoading.value = true;
+  rsResult.value = "";
+
+  zigWorker.postMessage(code);
+  zigLoading.value = true;
+  zigResult.value = "";
 };
 </script>
 

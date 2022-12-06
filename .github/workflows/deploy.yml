@@ -39,6 +39,11 @@ jobs:
         with:
           repository: mcmcgrath13/lox-rs
           path: lox-rs
+      - name: Checkout lox-zig
+        uses: actions/checkout@v3
+        with:
+          repository: mcmcgrath13/lox-zig
+          path: lox-zig
       - name: Checkout lox-v-lox
         uses: actions/checkout@v3
         with:
@@ -60,6 +65,10 @@ jobs:
           node-version: "16"
           cache: npm
           cache-dependency-path: main/package-lock.json
+      - name: Setup Zig
+        uses: goto-bus-stop/setup-zig@v2
+        with:
+          version: 0.9.1
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v2

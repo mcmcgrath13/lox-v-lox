@@ -6,7 +6,6 @@ A web app comparing the results of [lox-rs](https://github.com/mcmcgrath13/lox-r
 
 - Node 16
 - [rsw-rs](https://github.com/rwasm/rsw-rs) - 🦞 wasm-pack based build tool
-_
 
 ## Quick Start
 

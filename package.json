@@ -5,9 +5,10 @@
     "dev": "vite",
     "watch": "rsw watch",
     "rsw": "rsw",
-    "build-gh": "rsw build && npm run fe:build -- --base=/lox-v-lox/",
+    "build-gh": "rsw build && npm run zig:build && npm run fe:build -- --base=/lox-v-lox/",
     "build": "rsw build && npm run fe:build",
     "fe:build": "vue-tsc --noEmit && vite build",
+    "zig:build": "./install-lox-zig.sh",
     "preview": "vite preview",
     "lint": "vue-tsc --noEmit && prettier --check src && eslint --ext .js,.vue,.ts src",
     "fix": "prettier --write src && npm run lint -- --fix"
