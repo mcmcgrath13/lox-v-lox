@@ -1,10 +1,10 @@
-const getString = function(ptr, len) {
+const getString = function (ptr, len) {
   const slice = lox.exports.memory.buffer.slice(ptr, ptr + len);
   const textDecoder = new TextDecoder();
   return textDecoder.decode(slice);
 };
 
-const wasm_print = function(msg_ptr, msg_len) {
+const wasm_print = function (msg_ptr, msg_len) {
   const msg = getString(msg_ptr, msg_len);
   self.postMessage(msg);
 };
@@ -12,14 +12,13 @@ const wasm_print = function(msg_ptr, msg_len) {
 const lox = {
   imports: {
     zig: {
-      wasm_print
-    }
+      wasm_print,
+    },
   },
-  exports: undefined
+  exports: undefined,
 };
 
 let ready = false;
-
 
 self.onerror = function (e) {
   console.error(e);
@@ -27,14 +26,12 @@ self.onerror = function (e) {
 
 self.onmessage = function (code) {
   if (code.data === "__init__") {
-    let input = new URL('lox.wasm', import.meta.url);
-    WebAssembly.instantiateStreaming(fetch(input), lox.imports).then(
-      (obj) => {
-        ready = true;
-        lox.exports = obj.instance.exports;
-        self.postMessage("__ready__");
-      }
-    );
+    let input = new URL("lox.wasm", import.meta.url);
+    WebAssembly.instantiateStreaming(fetch(input), lox.imports).then((obj) => {
+      ready = true;
+      lox.exports = obj.instance.exports;
+      self.postMessage("__ready__");
+    });
   } else {
     if (!ready) {
       throw "not ready yet!";

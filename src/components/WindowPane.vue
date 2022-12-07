@@ -4,7 +4,7 @@
       <h2>{{ title }}</h2>
       <slot name="bar"></slot>
     </div>
-    <div class="inner-pane">
+    <div class="inner-pane" :class="stickBottom ? 'stick-bottom' : 'stick-top'">
       <slot></slot>
     </div>
   </div>
@@ -13,6 +13,7 @@
 <script setup lang="ts">
 defineProps<{
   title: string;
+  stickBottom?: boolean;
 }>();
 </script>
 
@@ -33,6 +34,16 @@ defineProps<{
   border: 3px solid var(--border-color);
   border-top: 0;
   padding: 1rem;
+}
+
+.inner-pane.stick-bottom {
+  flex: 1;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.inner-pane.stick-top {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr);
