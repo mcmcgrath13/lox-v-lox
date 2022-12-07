@@ -12,9 +12,13 @@ fun fib(n) {
   return fib(n - 2) + fib(n - 1);
 }
 
-for (var i = 1; i <= 10; i = i + 1) {
+var start = clock();
+for (var i = 1; i <= 25; i = i + 1) {
   print fib(i);
 }
+
+print "time to execute (ms):";
+print clock() - start;
 `,
   },
   {

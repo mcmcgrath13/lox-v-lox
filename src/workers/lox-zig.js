@@ -9,10 +9,15 @@ const wasm_print = function (msg_ptr, msg_len) {
   self.postMessage(msg);
 };
 
+const wasm_clock = function () {
+  return Date.now()
+}
+
 const lox = {
   imports: {
     zig: {
       wasm_print,
+      wasm_clock,
     },
   },
   exports: undefined,
