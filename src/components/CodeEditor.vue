@@ -107,12 +107,15 @@ const getRsTimeDiff = (now: number) => {
 const rsWorker = new RsWorker();
 
 rsWorker.onmessage = function (e) {
-  if (e.data !== "__ready__") {
-    rsTimes.end = Date.now();
-    rsResult.value = e.data;
+  if (e.data !== "__ready__" && e.data !== "__done__") {
+    rsResult.value += e.data;
     rsErrors.value = "";
+  } else {
+    rsLoading.value = false;
   }
-  rsLoading.value = false;
+  if (e.data == "__done__") {
+    rsTimes.end = Date.now();
+  }
 };
 
 rsWorker.onerror = function (e) {

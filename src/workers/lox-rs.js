@@ -6,6 +6,10 @@ self.onerror = function (e) {
 
 let ready = false;
 
+const wasm_print = function (msg) {
+  self.postMessage(`${msg}\n`);
+};
+
 self.onmessage = function (code) {
   if (code.data === "__init__") {
     init().then(() => {
@@ -16,7 +20,8 @@ self.onmessage = function (code) {
     if (!ready) {
       throw "not ready yet!";
     }
-    const lox = new Lox();
-    self.postMessage(lox.run(code.data));
+    const lox = new Lox(wasm_print);
+    lox.run(code.data);
+    self.postMessage("__done__");
   }
 };

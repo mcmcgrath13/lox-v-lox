@@ -10,8 +10,8 @@ const wasm_print = function (msg_ptr, msg_len) {
 };
 
 const wasm_clock = function () {
-  return Date.now()
-}
+  return Date.now();
+};
 
 const lox = {
   imports: {
